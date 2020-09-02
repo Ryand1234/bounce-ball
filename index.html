@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+	<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a class="navbar-item" href="/">
+      <img src="https://images.creativemarket.com/0.1.0/ps/3653664/910/607/m1/fpnw/wm0/simulation-logo-.png?1511876001&s=647611cd1dbbc3dc451df338ffa1c83a" alt="A Graph database powered To-Do app" />
+    </a>
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true">new</span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div id="navbarBasicExample" class="navbar-menu">
+    <div class="navbar-start">
+      <a class="navbar-item" href="/">
+        Home
+      </a>
+
+      <a class="navbar-item" href="https://github.com/Ryand1234/bounce-ball">
+        Documentation
+      </a>
+
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More
+        </a>
+
+        <div class="navbar-dropdown">
+          <a href="/motion" class="navbar-item">
+            Add Task
+          </a>
+          <a class="navbar-item">
+            Contact
+          </a>
+          <hr class="navbar-divider">
+          <a class="navbar-item">
+            Report an issue
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+	<head>
+		<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
+		<script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script> 
+		<script type="text/javascript">
+			var H = 50;
+			window.onload = function () {
+			var chart = new CanvasJS.Chart("chartContainer", { 
+			title: {
+			text: "Bounce Ball"
+			},
+			  axisX:{
+
+			  	title: "Time",
+					interval: 10
+				},
+			data: [
+			{
+			title: "Height",
+			type: "spline",
+			dataPoints: [
+				{ x: 10, y: 50 },
+				{ x: 20, y: 0 },
+				{ x: 30, y: 25 },
+				{ x: 40, y: 0 },
+				{ x: 50, y: 12.5 },
+				{ x: 60, y: 0 }
+			,				{ x: 70, y:  6.25 }	
+			]
+			}
+			]
+			});
+			chart.render();	
+
+			var slider = document.getElementById("myRange");
+			var output = document.getElementById('demo')
+			output.innerHTML = slider.value;
+
+			slider.oninput = function() {
+
+			var e = this.value;
+			output.innerHTML = e;
+			chart.options.title.text = "Coefficent of Restutution value Changed";
+			var h, j = 10;
+			h = H
+			var result = new Array();
+			for(var k = 0; k < 7; k++){
+			result.push({x: j, y: h});
+			j = j + 10;
+			result.push({x: j, y: 0});
+			h = e*h;
+
+			j = j + 10;
+
+			}
+
+			chart.options.data[0].dataPoints = result;
+			chart.render();
+			}
+
+
+			}
+		</script>
+	</head> 
+	<body>
+		<div id="chartContainer" style="width:100%; height:280px"></div>  
+		<input type="range" min="0" max="1" step="0.1" value="0.5" class="slider" id="myRange">
+		<p >COR is <span id="demo"></span></p>
+		<p>Default Height is 50</p>
+	</body>
+</html>
