@@ -1,118 +1,209 @@
 <!DOCTYPE html>
 <html>
 	<head> 
-		<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
-		<script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script> 
-		<script type="text/javascript">
-			var H = 50;
-			window.onload = function () {
-			var chart = new CanvasJS.Chart("chartContainer", { 
-			title: {
-			text: "Bounce Ball"
-			},
-			  axisX:{
+		<nav class="navbar" role="navigation" aria-label="main navigation">
+		  <div class="navbar-brand">
+		    <a class="navbar-item" href="file:///home/riyan/github/bounce-ball/index.html">
+		      <img src="https://images.creativemarket.com/0.1.0/ps/3653664/910/607/m1/fpnw/wm0/simulation-logo-.png?1511876001&s=647611cd1dbbc3dc451df338ffa1c83a" alt="A Graph database powered To-Do app" />
+		    </a>
+		    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+		      <span aria-hidden="true">new</span>
+		      <span aria-hidden="true"></span>
+		      <span aria-hidden="true"></span>
+		    </a>
+		  </div>
+		  <div id="navbarBasicExample" class="navbar-menu">
+		    <div class="navbar-start">
+		      <a class="navbar-item" href="file:///home/riyan/github/bounce-ball/motion.html">
+		        Home
+		      </a>
 
-			  	title: "Distance",
-					interval: 10
-				},
-			data: [
-			{
-			title: "Height",
-			type: "spline",
-			dataPoints: [
-				{ x: 10, y: 50 },
-				{ x: 20, y: 0 },
-				{ x: 30, y: 25 },
-				{ x: 40, y: 0 },
-				{ x: 50, y: 12.5 },
-				{ x: 60, y: 0 },
-				{ x: 70, y:  6.25 }	
-			]
-			}
-			]
-			});
-			chart.render();	
-			var angleValue = 30;
-			var velocityValue = 45;
+		      <a class="navbar-item" href="https://github.com/Ryand1234/bounce-ball">
+		        Documentation
+		      </a>
 
-			var velocity = document.getElementById("velocity");
-			var angle = document.getElementById("angle");
-			var velocityValueDom = document.getElementById('velocity-value');
-			var angleValueDom = document.getElementById('angle-value');
-			velocityValueDom.innerHTML = velocity.value;
-			angleValueDom.innerHTML = angle.value;
-			const g = 10;
+		      <div class="navbar-item has-dropdown is-hoverable">
+		        <a class="navbar-link">
+		          More
+		        </a>
 
-			function getTanFromDegrees(degrees) {
-				return Math.tan(degrees * Math.PI / 180);
-			}
-
-			function getSecFromDegrees(degrees) {
-				return 1/(Math.cos(degrees * Math.PI / 180));
-			}
-
-
-			function height(angle, g, velocity, x){
-				let SecnTerm = x*getTanFromDegrees(angle);
-				let firsTerm = (Math.pow(x,2)*g*Math.pow(getSecFromDegrees(angle), 2))/(2*Math.pow(velocity, 2))
-
-
-				return SecnTerm - firsTerm;
-			}
-
-			velocity.oninput = function() {
-
-			velocityValue = this.value;
-			velocityValueDom.innerHTML = velocityValue;
-			chart.options.title.text = "Velocity value Changed";
-			var h, j = 10;
-			h = H
-			var result = new Array();
-			for(var k = 0; k < 20; k++){
-				j = j + 10;
-				h = height(angleValue, g, velocityValue, j);
-				if(h < 0){
-					h = 0;
-				}
-				result.push({x: j, y: h});
-			}
-
-			chart.options.data[0].dataPoints = result;
-			chart.render();
-			}
-
-			angle.oninput = function() {
-
-			angleValue = this.value;
-			angleValueDom.innerHTML = angleValue;
-			chart.options.title.text = "Angle value Changed";
-			var h, j = 10;
-			h = H
-			var result = new Array();
-			for(var k = 0; k < 20; k++){
-				j = j + 10;
-				h = height(angleValue, g, velocityValue, j);
-				if(h < 0){
-					h = 0;
-				}
-				result.push({x: j, y: h});
-			}
-
-			chart.options.data[0].dataPoints = result;
-			chart.render();
-			}
-
-
-			}
-		</script>
+		        <div class="navbar-dropdown">
+		          <a href="file:///home/riyan/github/bounce-ball/index.html" class="navbar-item">
+		            Drop Ball
+		          </a>
+		          <a class="navbar-item">
+		            Contact
+		          </a>
+		          <hr class="navbar-divider">
+		          <a class="navbar-item">
+		            Report an issue
+		          </a>
+		        </div>
+		      </div>
+		    </div>
+		  </div>
+		</nav>
+		<div class="has-text-centered">
+			<div class="columns is-mobile">
+			  <div class="column">
+			  	<p>Velocity</p>
+				<input type="range" min="0" max="80" step="5" value="15" class="slider" id="velocity">
+			  </div>
+			  <div class="column">
+			  	<p>Angle</p>
+			  	<input type="range" min="0" max="90" step="1" value="45" class="slider" id="angle">
+			  </div>
+			  <div class="column">
+			  	<p>Acceleration due to Gravity</p>
+			  	<input type="range" min="0" max="100" step="1" value="10" class="slider" id="g">
+			  </div>
+			</div>
+		</div>
 	</head> 
 	<body>
-		<div id="chartContainer" style="width:100%; height:280px"></div>  
-		<input type="range" min="0" max="80" step="5" value="15" class="slider" id="velocity">
-		<input type="range" min="0" max="90" step="1" value="45" class="slider" id="angle">
-		<p>Velocity is <span id="velocity-value"></span></p>
-		<p>Angle is <span id="angle-value"></span></p>
-		<p>Default Height is 50</p>
+		<div class="has-text-centered is-size-6-mobile is-size-6-desktop">
+			<div id="chartContainer" style="width:100%; height:280px"></div>
+			<p>Velocity is <span id="velocity-value"></span></p>
+			<p>Angle is <span id="angle-value"></span></p>
+			<p>Acceleration due to Gravity is <span id="g-value"></span></p>
+		</div>
 	</body>
+	<footer class="footer">
+	  <div class="content has-text-centered">
+	    <p>
+	      <strong>Simulation WebApp</strong> by Riyan and Shivam. The source code is licensed
+	      <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website code is 
+	      available at <a href="https://github.com/Ryand1234/bounce-ball">here</a>.
+	    </p>
+	  </div>
+	</footer>
+	<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
+	<script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script> 
+	<script type="text/javascript">
+		var H = 50;
+		window.onload = function () {
+		var chart = new CanvasJS.Chart("chartContainer", { 
+		title: {
+		text: "Bounce Ball"
+		},
+		  axisX:{
+
+		  	title: "Distance",
+				interval: 10
+			},
+		data: [
+		{
+		title: "Height",
+		type: "spline",
+		dataPoints: [
+			{ x: 10, y: 50 },
+			{ x: 20, y: 0 },
+			{ x: 30, y: 25 },
+			{ x: 40, y: 0 },
+			{ x: 50, y: 12.5 },
+			{ x: 60, y: 0 },
+			{ x: 70, y:  6.25 }	
+		]
+		}
+		]
+		});
+		chart.render();	
+		var angleValue = 30;
+		var velocityValue = 45;
+		var gValue = 10;
+
+		var velocity = document.getElementById("velocity");
+		var angle = document.getElementById("angle");
+		var g = document.getElementById("g")
+		var velocityValueDom = document.getElementById('velocity-value');
+		var gValueDom = document.getElementById("g-value");
+		var angleValueDom = document.getElementById('angle-value');
+		velocityValueDom.innerHTML = velocity.value;
+		angleValueDom.innerHTML = angle.value;
+		gValueDom.innerHTML = g.value;
+
+		function getTanFromDegrees(degrees) {
+			return Math.tan(degrees * Math.PI / 180);
+		}
+
+		function getSecFromDegrees(degrees) {
+			return 1/(Math.cos(degrees * Math.PI / 180));
+		}
+
+
+		function height(angle, g, velocity, x){
+			let SecnTerm = x*getTanFromDegrees(angle);
+			let firsTerm = (Math.pow(x,2)*g*Math.pow(getSecFromDegrees(angle), 2))/(2*Math.pow(velocity, 2))
+
+
+			return SecnTerm - firsTerm;
+		}
+
+		velocity.oninput = function() {
+
+		velocityValue = this.value;
+		velocityValueDom.innerHTML = velocityValue;
+		chart.options.title.text = "Velocity value Changed";
+		var h, j = 10;
+		h = H
+		var result = new Array();
+		for(var k = 0; k < 20; k++){
+			j = j + 10;
+			h = height(angleValue, gValue, velocityValue, j);
+			if(h < 0){
+				h = 0;
+			}
+			result.push({x: j, y: h});
+		}
+
+		chart.options.data[0].dataPoints = result;
+		chart.render();
+		}
+
+		g.oninput = function() {
+
+		gValue = this.value;
+		gValueDom.innerHTML = gValue;
+		chart.options.title.text = "Acceleration due to gravity value Changed";
+		var h, j = 10;
+		h = H
+		var result = new Array();
+		for(var k = 0; k < 20; k++){
+			j = j + 10;
+			h = height(angleValue, gValue, velocityValue, j);
+			if(h < 0){
+				h = 0;
+			}
+			result.push({x: j, y: h});
+		}
+
+		chart.options.data[0].dataPoints = result;
+		chart.render();
+		}
+
+		angle.oninput = function() {
+
+		angleValue = this.value;
+		angleValueDom.innerHTML = angleValue;
+		chart.options.title.text = "Angle value Changed";
+		var h, j = 10;
+		h = H
+		var result = new Array();
+		for(var k = 0; k < 20; k++){
+			j = j + 10;
+			h = height(angleValue, gValue, velocityValue, j);
+			if(h < 0){
+				h = 0;
+			}
+			result.push({x: j, y: h});
+		}
+
+		chart.options.data[0].dataPoints = result;
+		chart.render();
+		}
+
+
+		}
+	</script>
 </html>

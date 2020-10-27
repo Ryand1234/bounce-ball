@@ -2,7 +2,7 @@
 <html>
 	<nav class="navbar" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
-    <a class="navbar-item" href="/">
+    <a class="navbar-item" href="file:///home/riyan/github/bounce-ball/index.html">
       <img src="https://images.creativemarket.com/0.1.0/ps/3653664/910/607/m1/fpnw/wm0/simulation-logo-.png?1511876001&s=647611cd1dbbc3dc451df338ffa1c83a" alt="A Graph database powered To-Do app" />
     </a>
     <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
@@ -13,7 +13,7 @@
   </div>
   <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-start">
-      <a class="navbar-item" href="/">
+      <a class="navbar-item" href="file:///home/riyan/github/bounce-ball/index.html">
         Home
       </a>
 
@@ -27,8 +27,8 @@
         </a>
 
         <div class="navbar-dropdown">
-          <a href="/motion" class="navbar-item">
-            Add Task
+          <a href="file:///home/riyan/github/bounce-ball/motion.html" class="navbar-item">
+            2D Motion
           </a>
           <a class="navbar-item">
             Contact
@@ -43,12 +43,40 @@
   </div>
 </nav>
 
-	<head>
-		<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+	<head >
+		<div class="has-text-centered">
+			<div class="columns is-mobile">
+			  <div class="column">
+			  	<p>COR</p>
+				<input type="range" min="0" max="1" step="0.1" value="0.5" class="slider" id="cor">
+			  </div>
+			  <div class="column">
+			  	<p>Height</p>
+			  	<input type="range" min="10" max="100" step="5" value="50" class="slider" id="height">	
+			  </div>
+			 </div>
+		</div>
+	</head> 
+	<body>
+		<div class="has-text-centered is-size-6-mobile is-size-6-desktop">
+			<div id="chartContainer" style="width:100%; height:280px"></div>
+			<p >COR is <span id="cor-value"></span></p>
+			<p >Height is <span id="height-value"></span></p>
+		</div>
+	</body>
+	<footer class="footer">
+	  <div class="content has-text-centered">
+	    <p>
+	      <strong>Simulation WebApp</strong> by Riyan and Shivam. The source code is licensed
+	      <a href="http://opensource.org/licenses/mit-license.php">MIT</a>. The website code is 
+	      available at <a href="https://github.com/Ryand1234/bounce-ball">here</a>.
+	    </p>
+	  </div>
+	</footer>
+	<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
 		<script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script> 
 		<script type="text/javascript">
-			var H = 50;
 			window.onload = function () {
 			var chart = new CanvasJS.Chart("chartContainer", { 
 			title: {
@@ -77,40 +105,57 @@
 			});
 			chart.render();	
 
-			var slider = document.getElementById("myRange");
-			var output = document.getElementById('demo')
-			output.innerHTML = slider.value;
+			var corValue = 0.5;
+			var heightValue = 50;
 
-			slider.oninput = function() {
+			var cor = document.getElementById("cor");
+			var corValueDom = document.getElementById('cor-value')
+			var height = document.getElementById("height");
+			var heightValueDom = document.getElementById('height-value')
+			heightValueDom.innerHTML = height.value;
+			corValueDom.innerHTML = cor.value;
 
-			var e = this.value;
-			output.innerHTML = e;
-			chart.options.title.text = "Coefficent of Restutution value Changed";
-			var h, j = 10;
-			h = H
-			var result = new Array();
-			for(var k = 0; k < 7; k++){
-			result.push({x: j, y: h});
-			j = j + 10;
-			result.push({x: j, y: 0});
-			h = e*h;
+			cor.oninput = function() {
 
-			j = j + 10;
+				corValue = this.value;
+				corValueDom.innerHTML = corValue;
+				chart.options.title.text = "Coefficent of Restutution value Changed";
+				var h = heightValue, j = 10;
+				var result = new Array();
+				for(var k = 0; k < 10; k++){
+					result.push({x: j, y: h*1});
+					j = j + 10;
+					result.push({x: j, y: 0});
+					h = corValue*corValue*h;
 
+					j = j + 10;
+
+				}
+
+				chart.options.data[0].dataPoints = result;
+				chart.render();
 			}
 
-			chart.options.data[0].dataPoints = result;
-			chart.render();
-			}
+			height.oninput = function() {
 
+				heightValue = this.value;
+				heightValueDom.innerHTML = heightValue;
+				chart.options.title.text = "Height value Changed";
+				var h = heightValue, j = 10;
+				var result = new Array();
+				result.push({x: j, y: h*1});
+				for(var k = 0; k < 10; k++){
+					j = j + 10;
+					result.push({x: j, y: 0});
+					h = corValue*corValue*h;
+					j = j + 10;
+					result.push({x: j, y: h});
+				}
+
+				chart.options.data[0].dataPoints = result;
+				chart.render();
+			}
 
 			}
 		</script>
-	</head> 
-	<body>
-		<div id="chartContainer" style="width:100%; height:280px"></div>  
-		<input type="range" min="0" max="1" step="0.1" value="0.5" class="slider" id="myRange">
-		<p >COR is <span id="demo"></span></p>
-		<p>Default Height is 50</p>
-	</body>
 </html>
