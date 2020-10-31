@@ -159,8 +159,8 @@
 		var result = new Array();
 		for(var k = 0; k < 20; k++){
 			j = j + 10;
-			dis = dis +10;
-			h = height(angleValue, gValue, velocityCurrentValue, dis);
+			//dis = dis +10;
+			h = height(angleValue, gValue, velocityCurrentValue, 10);
 			if(h < 0){
 				h = 0;
 				velocityCurrentValue = 0.5*velocityCurrentValue;
