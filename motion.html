@@ -100,6 +100,9 @@
 		  	title: "Distance",
 				interval: 10
 			},
+			axisY:{
+				title: "Height"
+			},
 		data: [
 		{
 		title: "Height",
@@ -163,7 +166,7 @@
 			h = height(angleValue, gValue, velocityCurrentValue, dis);
 			if(h < 0){
 				h = 0;
-				velocityCurrentValue = 0.5*velocityCurrentValue;
+				velocityCurrentValue = 0.8*velocityCurrentValue;
 				dis = 0;
 			}
 			result.push({x: j, y: h});
@@ -188,7 +191,7 @@
 			h = height(angleValue, gValue, velocityCurrentValue, dis);
 			if(h < 0){
 				h = 0;
-				velocityCurrentValue = 0.5*velocityCurrentValue;
+				velocityCurrentValue = 0.8*velocityCurrentValue;
 				dis = 0;
 			}
 			result.push({x: j, y: h});
@@ -213,7 +216,7 @@
 			h = height(angleValue, gValue, velocityCurrentValue, dis);
 			if(h < 0){
 				h = 0;
-				velocityCurrentValue = 0.5*velocityCurrentValue;
+				velocityCurrentValue = 0.8*velocityCurrentValue;
 				dis = 0;
 			}
 			result.push({x: j, y: h});
