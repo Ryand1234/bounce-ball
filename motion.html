@@ -47,15 +47,15 @@
 			<div class="columns is-mobile">
 			  <div class="column">
 			  	<p>Velocity</p>
-				<input type="range" min="0" max="80" step="5" value="15" class="slider" id="velocity">
+				<input class="slider is-fullwidth is-success is-circle" type="range" min="0" max="80" step="5" value="15" id="velocity">
 			  </div>
 			  <div class="column">
 			  	<p>Angle</p>
-			  	<input type="range" min="0" max="90" step="1" value="45" class="slider" id="angle">
+			  	<input class="slider is-fullwidth is-success is-circle" type="range" min="0" max="90" step="1" value="45" id="angle">
 			  </div>
 			  <div class="column">
 			  	<p>Acceleration due to Gravity</p>
-			  	<input type="range" min="0" max="100" step="1" value="10" class="slider" id="g">
+			  	<input class="slider is-fullwidth is-success is-circle" type="range" min="0" max="100" step="1" value="10" id="g">
 			  </div>
 			</div>
 		</div>
@@ -79,8 +79,16 @@
 	</footer>
 	<script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
-	<script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script> 
+	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script> 
 	<script type="text/javascript">
+	
+		$(document).ready(function() {
+		  $(".navbar-burger").click(function() {
+		      $(".navbar-burger").toggleClass("is-active");
+		      $(".navbar-menu").toggleClass("is-active");
+		  });
+		});
+
 		var H = 50;
 		window.onload = function () {
 		var chart = new CanvasJS.Chart("chartContainer", { 
@@ -145,14 +153,18 @@
 		velocityValue = this.value;
 		velocityValueDom.innerHTML = velocityValue;
 		chart.options.title.text = "Velocity value Changed";
-		var h, j = 10;
+		var h, j = 0, dis = 0;
 		h = H
+		var velocityCurrentValue = velocityValue;
 		var result = new Array();
 		for(var k = 0; k < 20; k++){
 			j = j + 10;
-			h = height(angleValue, gValue, velocityValue, j);
+			dis = dis +10;
+			h = height(angleValue, gValue, velocityCurrentValue, dis);
 			if(h < 0){
 				h = 0;
+				velocityCurrentValue = 0.5*velocityCurrentValue;
+				dis = 0;
 			}
 			result.push({x: j, y: h});
 		}
@@ -166,14 +178,18 @@
 		gValue = this.value;
 		gValueDom.innerHTML = gValue;
 		chart.options.title.text = "Acceleration due to gravity value Changed";
-		var h, j = 10;
+		var h, j = 0, dis = 0;
 		h = H
+		var velocityCurrentValue = velocityValue;
 		var result = new Array();
 		for(var k = 0; k < 20; k++){
 			j = j + 10;
-			h = height(angleValue, gValue, velocityValue, j);
+			dis = dis + 10;
+			h = height(angleValue, gValue, velocityCurrentValue, dis);
 			if(h < 0){
 				h = 0;
+				velocityCurrentValue = 0.5*velocityCurrentValue;
+				dis = 0;
 			}
 			result.push({x: j, y: h});
 		}
@@ -187,14 +203,18 @@
 		angleValue = this.value;
 		angleValueDom.innerHTML = angleValue;
 		chart.options.title.text = "Angle value Changed";
-		var h, j = 10;
+		var h, j = 0, dis = 0;
 		h = H
+		var velocityCurrentValue = velocityValue;
 		var result = new Array();
 		for(var k = 0; k < 20; k++){
 			j = j + 10;
-			h = height(angleValue, gValue, velocityValue, j);
+			dis = dis + 10;
+			h = height(angleValue, gValue, velocityCurrentValue, dis);
 			if(h < 0){
 				h = 0;
+				velocityCurrentValue = 0.5*velocityCurrentValue;
+				dis = 0;
 			}
 			result.push({x: j, y: h});
 		}
